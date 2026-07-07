@@ -1,0 +1,43 @@
+Title: Faster Indicators - Online Job Advert Estimates
+Description: Experimental job advert indices covering the UK job market.
+Issued: 2022-04-21T00:00:00.000Z
+Next Release: To be announced
+Identifier: Faster Indicators - Online Job Advert Estimates
+Language: English
+Contact: Vacancy Survey team, vacancy.survey@ons.gov.uk, +44 1633 455120
+Periodicity: Weekly
+Distribution:
+	Extension: xls
+	Size: 106819
+	URL: https://download.ons.gov.uk/downloads/datasets/online-job-advert-estimates/editions/time-series/versions/20.xlsx
+
+	Extension: csv
+	Size: 749282
+	URL: https://download.ons.gov.uk/downloads/datasets/online-job-advert-estimates/editions/time-series/versions/20.csv
+
+	Extension: csvw
+	Size: 1500
+	URL: https://download.ons.gov.uk/downloads/datasets/online-job-advert-estimates/editions/time-series/versions/20.csv-metadata.json
+
+Unit of measure: 
+License: 
+National Statistic: false
+Canonical Topic: 
+Survey: 
+Dimensions:
+
+	Title: adzunajobscategory
+	Labels: [All industries Accounting / Finance Admin / clerical / secretarial Catering and hospitality Charity / voluntary Construction / trades Creative / design / arts & media Customer service / support Domestic help Education Energy / oil & gas Engineering Facilities / maintenance Graduate Healthcare and Social care HR & recruitment IT / Computing / Software Legal Management / exec / consulting Manufacturing Marketing / advertising / PR Other / general Part-time / weekend Property Sales Scientific / QA Transport / logistics / warehouse Travel / tourism Wholesale and retail Unknown]
+	Options: [all-industries accounting-finance admin-clerical-secretarial catering-and-hospitality charity-voluntary construction-trades creative-design-arts-and-media customer-service-support domestic-help education energy-oil-and-gas engineering facilities-maintenance graduate healthcare-and-social-care hr-and-recruitment it-computing-software legal management-exec-consulting manufacturing marketing-advertising-pr other-general part-time-weekend property sales scientific-qa transport-logistics-warehouse travel-tourism wholesale-and-retail unknown]
+
+	Title: geography
+	Labels: [United Kingdom]
+	Options: [K02000001]
+
+	Title: time
+	Labels: [2022 2021 2020 2019 2018]
+	Options: [2022 2021 2020 2019 2018]
+
+	Title: week
+	Labels: [Week 53 Week 52 Week 51 Week 50 Week 49 Week 48 Week 47 Week 46 Week 45 Week 44 Week 43 Week 42 Week 41 Week 40 Week 39 Week 38 Week 37 Week 36 Week 35 Week 34 Week 33 Week 32 Week 31 Week 30 Week 29 Week 28 Week 27 Week 26 Week 25 Week 24 Week 23 Week 22 Week 21 Week 20 Week 19 Week 18 Week 17 Week 16 Week 15 Week 14 Week 13 Week 12 Week 11 Week 10 Week 09 Week 08 Week 07 Week 06 Week 05 Week 04 Week 03 Week 02 Week 01]
+	Options: [week-53 week-52 week-51 week-50 week-49 week-48 week-47 week-46 week-45 week-44 week-43 week-42 week-41 week-40 week-39 week-38 week-37 week-36 week-35 week-34 week-33 week-32 week-31 week-30 week-29 week-28 week-27 week-26 week-25 week-24 week-23 week-22 week-21 week-20 week-19 week-18 week-17 week-16 week-15 week-14 week-13 week-12 week-11 week-10 week-9 week-8 week-7 week-6 week-5 week-4 week-3 week-2 week-1]
