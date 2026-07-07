@@ -1,0 +1,11 @@
+column_name,column_type,min,max,approx_unique,avg,std,q25,q50,q75,count,null_percentage
+v4_1,DOUBLE,0.0,10846.0,2410,278.14814307458084,1070.3165720817756,76.03459734058795,103.06353426519122,130.9870757841418,7950,17.36
+Data Marking,VARCHAR,..,x,2,,,,,,7950,76.59
+calendar-years,BIGINT,2018,2022,5,2020.0,1.4143025150141382,2019,2020,2021,7950,0.00
+Time,BIGINT,2018,2022,5,2020.0,1.4143025150141382,2019,2020,2021,7950,0.00
+uk-only,VARCHAR,K02000001,K02000001,1,,,,,,7950,0.00
+Geography,VARCHAR,United Kingdom,United Kingdom,1,,,,,,7950,0.00
+adzuna-jobs-category,VARCHAR,accounting-finance,wholesale-and-retail,31,,,,,,7950,0.00
+AdzunaJobsCategory,VARCHAR,Accounting / Finance,Wholesale and retail,30,,,,,,7950,0.00
+week-number,VARCHAR,week-1,week-9,50,,,,,,7950,0.00
+Week,VARCHAR,Week 01,Week 53,54,,,,,,7950,0.00
