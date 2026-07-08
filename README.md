@@ -1,4 +1,4 @@
-# juergens-projects
+# Juergens Projects
 Public projects to show some ideas and skills
 This list is work in progress.
 
