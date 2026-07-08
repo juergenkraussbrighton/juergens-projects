@@ -1,5 +1,11 @@
 import numpy as np
 import duckdb as ddb
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+import matplotlib.patches as mpatches
+import seaborn as sns
+from datetime import datetime, date, timedelta
 
 
 # Set up parameters for calculations
@@ -24,13 +30,13 @@ def main():
     ## Create calendar table
     ## Dates are weekly from Week 1 / 2018 to Week 9 / 2022
     with open("sql/CreatePointsTable.sql") as f:
-        ddb.sql(f.read())
+        ddb.execute(f.read())
 
     with open("sql/CreateJobCategoriesTable.sql") as f:
-        ddb.sql(f.read())
+        ddb.execute(f.read())
 
     with open("sql/CreateJobIndicesTable.sql") as f:
-        ddb.sql(f.read())
+        ddb.execute(f.read())
 
     ##print(ddb.sql('SELECT * FROM Points'))
     ## print(ddb.sql('SELECT * FROM RawData'))
@@ -57,7 +63,10 @@ def main():
                 """).fetchall()[0][0]
 
     raw_data = ddb.sql(f"""
-            SELECT p.Point, SUM(j.JobsIndex)/{avg_index} as Index
+            SELECT p.Point
+                       ,WEEK(p.Point) as WeekNo
+                       ,YEAR(p.Point) as YearNo
+                       ,SUM(j.JobsIndex)/{avg_index} as Index
             FROM Points p
                 LEFT OUTER JOIN JobIndices j 
                     ON p.YearNo = j.YearNo 
@@ -71,9 +80,9 @@ def main():
             GROUP BY p.Point, c.JobCategory
             """)
 
-    stddev_amount = raw_data.std('Index').fetchall()[0][0]
-    r = filtering_level * stddev_amount
-    
+    stddev_index = raw_data.std('Index').fetchall()[0][0]
+    r = filtering_level * stddev_index
+
     """ Calculate ApEn for datepoints in range, using window_days as the look-back calendar window.
         For weekly data this yields ~window_days//7 actual data points per ApEn calculation.
         The run-up interval is important to get a meaningful indication and needs to be tweaked.
@@ -85,25 +94,46 @@ def main():
     approx_points_in_window = window_days // 7  # approximate actual data points (weekly data)
     min_points = max(run_length + 2, approx_points_in_window // 4)  # Option A: require at least 25% of full window
 
+    ##df = pd.DataFrame(columns=["Point", "WeekNo", "YearNo", "Index", "ApEn"])
+    
     #Loop over all data points in the full reference range; display filtering happens at plot time
     for point in raw_data.order("Point").fetchall():
         datepoint = point[0]
         data = raw_data.filter(f"Point between date_add(DATE '{datepoint}', INTERVAL '-{window_days}' DAYS) AND '{datepoint}\'").order('Point').fetchall()
-        vals = [x[1] for x in data]  # Extract Indices from tuples
+        vals = [x[3] for x in data]  # Extract Indices from tuples
         if len(vals) < min_points:  # Option A: insufficient window — emit NaN rather than a misleading value
-            results.append((point[0], point[1], float('nan')))
+            results.append({
+                "Point": point[0],
+                "WeekNo": point[1],
+                "YearNo": point[2],
+                "Index": point[3],
+                "ApEn": float('nan')
+            })
             min_points_failures.append(datepoint)
         else:
             apen = CalculateApEn(vals, run_length, r)
-            results.append((point[0], point[1], apen))
+            results.append({
+                "Point": point[0],
+                "WeekNo": point[1],
+                "YearNo": point[2],
+                "Index": point[3],
+                "ApEn": apen
+            })
 
     ## print(f"DatePoint, {results}")
 
+    df = pd.DataFrame(results)
 
-    ## TODO: Plot stacked line graph year on year
+## TODO: Add a plot of the raw index data as well, with ApEn overlaid on a secondary axis
 
-    ## TODO: Plot ApEn over time
+    ## Plot stacked line graph year on year
+    ##sns.relplot(data=df, x="WeekNo", y="Index", kind='line', hue="YearNo")
 
+    ## Plot ApEn over time
+    sns.lineplot(data=df, x="Point", y="ApEn")
+
+
+    print("done")
 
 ###############################################
 # Approximate Entropy Calculation
