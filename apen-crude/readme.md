@@ -25,8 +25,8 @@ The Summary is a fairly smooth curve without the seasonal features, but the Educ
 
 The Output folder contains stacked plots of the normalised index year on year, where the seasonality of the Education data can be clearly seen. 
 
-The plots for Apen and Index cover the whole timespan. The Filtering Factor has a big impact on the ApEn figures, therefore plots have been created for Education and the summary data for filtering factors 0.1, 0.15, 0.2, 0.25 and 0.5
-A filtering factor of 0.15 works well for the data.
+The plots for Apen and Index cover the whole timespan. The Filtering Level has a big impact on the ApEn figures, therefore plots have been created for Education and the summary data for filtering levels 0.1, 0.15, 0.2, 0.25 and 0.5
+A filtering level of 0.15 works well for the data.
 
 A jump in ApEn indicates an irregularity in periodic data. For perfectly periodic data the ApEn is constant.
 Interpreting ApEn for data that is somewhat jagged ApEn alone is insufficient, but combined with sector knowledge and other methods it can be a valuable addition to the toolkit.
