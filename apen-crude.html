@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Crude Approximate Entropy &middot; Juergen's Projects</title>
+    <meta name="description" content="ApEn exploration of a time series dataset." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <style>
+      main {
+        max-width: 90% !important;
+      }
+      section ul {
+        display: inline-block;
+        text-align: left;
+      }
+      img {
+        display: block;
+        margin: 1.5rem auto;
+        max-width: 100%;
+        height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a class="brand" href="index.html"><span>~/</span>juergen</a>
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="projects.html">Projects</a>
+      <a class="nav-link" href="baking.html">Baking</a>
+      <a class="nav-link" href="about.html">About</a>
+      <a class="nav-link" href="contact.html">Contact</a>
+    </nav>
+
+    <header class="page-header">
+      <h1 class="prompt">crude approximate entropy exploration</h1>
+      <p>Approximate Entropy calculation and exploration of a time series dataset.</p>
+    </header>
+
+    <main>
+      <section>
+        <h2>Background</h2>
+        <p>
+          I was asked to provide a tool predicting a change of behaviour in clients that could lead to late
+          payments or bad debt. Looking at methods to analyse time series, I came across the Approximate Entropy
+          (ApEn) statistical method.
+        </p>
+        <p>
+          Initially conceived to monitor physiological regular data like ECGs, it is sensitive to changes in
+          periodicity. This tool found later applications in other areas such as finance.
+        </p>
+        <p>
+          The invoicing data at my workplace displayed seasonal changes, but the annual recurrence was quite
+          strong. I had a dataset spanning 22 years. Unfortunately I am not able to use this dataset here.
+        </p>
+      </section>
+
+      <section>
+        <h2>Dataset</h2>
+        <p>
+          The available <a href="https://www.ons.gov.uk/datasets/online-job-advert-estimates/editions/time-series/versions" target="_blank" rel="noopener noreferrer">dataset</a> from the ONS was compiled with a purpose to understand the impact of Brexit on the
+          job market. It is an online postings index spanning January 2018 to March 2022.
+        </p>
+        <p>The dataset includes weekly data partitioned by Job Category, and a summary for All Industries.</p>
+        <p>
+          The summary is a fairly smooth curve without the seasonal features, but the Education subset exhibits
+          that to some extent.
+        </p>
+
+        <h3>All Industries vs. Education</h3>
+        <p>The Output folder contains stacked plots of the normalised index year on year, where the seasonality of the Education data can be clearly seen.</p>
+        <img src="assets/Education_index_plot_20260709T134016.png" alt="Education index plot" />
+        <img src="assets/Allindustries_index_plot_20260709T134216.png" alt="All industries index plot" />
+      </section>
+
+      <section>
+        <h2>Approximate Entropy Analysis</h2>
+        <p>
+          The plots for ApEn and Index cover the whole timespan. The Filtering Level has a big impact on the ApEn
+          figures, therefore plots have been created for Education and the summary data for filtering levels 0.1,
+          0.15, and 0.5.
+        </p>
+
+        <h3>Filtering Level 0.1</h3>
+        <p>At FL 0.1, ApEn is very noisy.</p>
+        <img src="assets/Education_ApEn_plot_FL0.1_20260709T134046.png" alt="Education ApEn plot, Filtering Level 0.1" />
+
+        <h3>Filtering Level 0.15</h3>
+        <p>A filtering level of 0.15 works well for the data, smoothing out noise while preserving meaningful features.</p>
+        <img src="assets/Education_ApEn_plot_FL0.15_20260709T134036.png" alt="Education ApEn plot, Filtering Level 0.15" />
+
+        <h3>Filtering Level 0.5</h3>
+        <p>
+          At FL 0.5, ApEn becomes almost featureless, in sharp contrast to FL 0.1. This demonstrates how sensitive
+          the filtering level is to the apparent complexity and periodicity in the data.
+        </p>
+        <img src="assets/Education_ApEn_plot_FL0.5_20260709T134236.png" alt="Education ApEn plot, Filtering Level 0.5" />
+      </section>
+
+      <section>
+        <h2>Interpretation</h2>
+        <p>
+          A jump in ApEn indicates an irregularity in periodic data. For perfectly periodic data the ApEn is constant.
+          Interpreting ApEn for data that is somewhat jagged, ApEn alone is insufficient, but combined with sector
+          knowledge and other methods it can be a valuable addition to the toolkit.
+        </p>
+      </section>
+
+      <section>
+        <h2>Key Events</h2>
+        <p>Here are a couple of events during the time covered by the dataset:</p>
+        <ul>
+          <li><strong>2019-07-23:</strong> Johnson becomes PM</li>
+          <li><strong>2019-09-09:</strong> Parliament prorogued</li>
+          <li><strong>2019-09-24:</strong> Supreme Court: prorogation unlawful</li>
+          <li><strong>2019-10-31:</strong> Brexit deadline 2</li>
+          <li><strong>2019-12-12:</strong> Conservative majority (Johnson)</li>
+          <li><strong>2020-01-31:</strong> UK leaves EU</li>
+          <li><strong>2020-12-31:</strong> Transition ends</li>
+          <li><strong>2020-03-23:</strong> UK lockdown 1</li>
+          <li><strong>2020-11-05:</strong> UK lockdown 2</li>
+          <li><strong>2021-01-05:</strong> UK lockdown 3</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Further Work</h2>
+        <p>A dataset better suited to this kind of analysis will be used in a future project.</p>
+      </section>
+
+      <section>
+        <h2>Source</h2>
+        <p>
+          This project is available on GitHub:
+          <a href="https://github.com/juergenkraussbrighton/juergens-projects.git">juergens-projects repository</a>
+        </p>
+      </section>
+    </main>
+
+    <footer>Juergen Krauss &middot; built for GitHub Pages</footer>
+  </body>
+</html>
